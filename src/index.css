@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Pfeile (Spinner) bei number-Inputs ausblenden */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Monospace utility for recipe module */
+.mono {
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom scrollbar for recipe tables */
+.recipe-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #404040 transparent;
+}
+.recipe-scroll::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+.recipe-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.recipe-scroll::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Print / PDF Export
+   ============================================================ */
+/* PrintDocument immer im DOM rendern (damit wir .innerHTML lesen können),
+   aber unsichtbar außerhalb des sichtbaren Bereichs parken.
+   Kein display:none — das würde das Rendern des Inhalts verhindern. */
+.recipe-print-doc {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 794px; /* A4-Breite bei 96 dpi; gibt dem Layout eine realistische Breite */
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Marquee animation for long salt names on long-press */
+@keyframes recipe-marquee {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(0); }
+  85%  { transform: translateX(var(--marquee-shift, -60px)); }
+  100% { transform: translateX(var(--marquee-shift, -60px)); }
+}
+.recipe-marquee-run {
+  animation: recipe-marquee 6s ease-in-out forwards;
+}
+
+/* RGB Übergang button background animation */
+@keyframes rgbShift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Salt row flash animation for recipe transfer.
+   Uses the active system accent color (--sys-accent) — automatically inherits
+   RGB-Modus, Farbrotation oder gewählte Akzentfarbe, da --sys-accent in
+   RecipeView's root div gesetzt wird und die Zeilen darunter liegen. */
+@keyframes saltFlash {
+  0%, 50% {
+    background-color: color-mix(in srgb, var(--sys-accent, #10b981) 35%, transparent);
+  }
+  100% { background-color: transparent; }
+}
+.salt-row-flash {
+  animation: saltFlash 2s ease-out forwards;
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.feykns.grocal",
+      "sha256_cert_fingerprints": [
+        "DD:83:68:D9:7F:D2:7F:F6:52:13:DF:9C:41:39:F7:4B:37:C7:B5:E1:36:57:26:20:CF:9F:0A:92:DF:7A:4F:16"
+      ]
+    }
+  }
+]
